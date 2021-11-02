@@ -68,7 +68,6 @@ class array2objectCommand(StreamingCommand):
             # Add field for the first time
             self._record_writer.custom_fields.add(key)
             event[key] = value
-            #event[key] = value
         elif event[key] == None:
             # Replace null value
             event[key] = value
