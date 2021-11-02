@@ -217,9 +217,15 @@ class GeneratingCommand(SearchCommand):
             records.append(row) #patch
             count += 1
             if count == self._record_writer._maxresultrows:
-                self._finished = False
-                return
-        self._finished = True
+                break
+
+        for row in records:
+            self._record_writer.write_record(row)
+
+        if count == self._record_writer._maxresultrows:
+            self._finished = False
+        else:
+            self._finished = True
 
     # endregion
 
