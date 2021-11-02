@@ -172,6 +172,16 @@ class SearchCommand(object):
                 raise ValueError('Unrecognized logging level: {}'.format(value))
         self._logger.setLevel(level)
 
+    # START EDIT https://github.com/splunk/splunk-sdk-python/pull/407/files
+    def add_field(self, current_record, field_name, field_value):
+        self._record_writer.custom_fields.add(field_name)
+        current_record[field_name] = field_value
+
+    def gen_record(self, **record):
+        self._record_writer.custom_fields |= set(record.keys())
+        return record
+    # END EDIT
+
     record = Option(doc='''
         **Syntax: record=<bool>
 

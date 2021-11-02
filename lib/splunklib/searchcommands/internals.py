@@ -508,6 +508,7 @@ class RecordWriter(object):
         self._chunk_count = 0
         self._pending_record_count = 0
         self._committed_record_count = 0
+        self.custom_fields = set() #EDIT https://github.com/splunk/splunk-sdk-python/pull/407/files
 
     @property
     def is_flushed(self):
@@ -573,20 +574,20 @@ class RecordWriter(object):
     def write_records(self, records):
         self._ensure_validity()
         records = list(records) #patched
-        self._fetch_fieldname(records) #patched
+        #self._fetch_fieldname(records) #patched
         write_record = self._write_record
         for record in records:
             write_record(record)
 
     # dynamic field patch https://github.com/splunk/splunk-sdk-python/compare/develop...DVPL-8354
-    def _fetch_fieldname(self, records):
-        fieldnames = set()
-        for record in records:
-            fieldname = set(list(record.keys()))
-            fieldnames = fieldnames | fieldname
-        self._fieldnames = list(fieldnames)
-        value_list = imap(lambda fn: (str(fn), str('__mv_') + str(fn)), self._fieldnames)
-        self._writerow(list(chain.from_iterable(value_list)))
+    #def _fetch_fieldname(self, records):
+    #    fieldnames = set()
+    #    for record in records:
+    #        fieldname = set(list(record.keys()))
+    #        fieldnames = fieldnames | fieldname
+    #    self._fieldnames = list(fieldnames)
+    #    value_list = imap(lambda fn: (str(fn), str('__mv_') + str(fn)), self._fieldnames)
+    #    self._writerow(list(chain.from_iterable(value_list)))
 
     def _clear(self):
         self._buffer.seek(0)
@@ -605,6 +606,7 @@ class RecordWriter(object):
 
         if fieldnames is None:
             self._fieldnames = fieldnames = list(record.keys())
+            self._fieldnames.extend([i for i in self.custom_fields if i not in self._fieldnames]) #patched
             value_list = imap(lambda fn: (str(fn), str('__mv_') + str(fn)), fieldnames)
             self._writerow(list(chain.from_iterable(value_list)))
 

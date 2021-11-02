@@ -212,8 +212,9 @@ class GeneratingCommand(SearchCommand):
 
     def _execute_chunk_v2(self, process, chunk):
         count = 0
+        records = [] # patch
         for row in process:
-            self._record_writer.write_record(row)
+            records.append(row) #patch
             count += 1
             if count == self._record_writer._maxresultrows:
                 self._finished = False
