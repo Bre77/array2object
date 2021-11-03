@@ -47,7 +47,7 @@ class array2objectCommand(StreamingCommand):
                 raise ValueError
         return target
 
-    def loop_dict(self,event,key,child,ignore=None):
+    def loop_dict(self,event,key,child,ignore):
         for index in child:
             #event = 
             nextkey = f'{key}.{index}'
@@ -56,13 +56,13 @@ class array2objectCommand(StreamingCommand):
             self.recursive_field(event,nextkey,child[index],ignore)
         #return event
 
-    def loop_list(self,event,key,child,ignore=None):
+    def loop_list(self,event,key,child,ignore):
         for value in child:
             #event =
             self.recursive_field(event,f'{key}{{}}',value,ignore)
         #return event
 
-    def recursive_field(self,event,key,value,ignore=None):
+    def recursive_field(self,event,key,value,ignore):
         if isinstance(value,dict):
             # Traverse object
             self.loop_dict(event,key,value,ignore)
@@ -125,7 +125,7 @@ class array2objectCommand(StreamingCommand):
                         continue
                     #Create children
                     #event =
-                    self.recursive_field(event,key,item)
+                    self.recursive_field(event,key,item,None)
                 else:
                     #Create all children but exclude the key
                     #event =
