@@ -123,6 +123,7 @@ class array2objectCommand(StreamingCommand):
                     try:
                         item = self.dotpath(self.value,item)
                     except (ValueError,KeyError,IndexError) as e:
+                        event["error"] = e
                         break
                     #Create children
                     #event =
