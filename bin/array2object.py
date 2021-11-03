@@ -85,7 +85,6 @@ class array2objectCommand(StreamingCommand):
 
     def stream(self, events):
         for event in events:
-            event["error"] = None
             # Get JSON
             try:
                 data = json.loads(event[self.field])
@@ -123,7 +122,6 @@ class array2objectCommand(StreamingCommand):
                     try:
                         item = self.dotpath(self.value,item)
                     except (ValueError,KeyError,IndexError) as e:
-                        event["error"] = e
                         continue
                     #Create children
                     #event =
