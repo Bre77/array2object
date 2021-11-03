@@ -124,10 +124,12 @@ class array2objectCommand(StreamingCommand):
                     except (ValueError,KeyError,IndexError) as e:
                         break
                     #Create children
-                    event = self.recursive_field(event,key,item)
+                    #event =
+                    self.recursive_field(event,key,item)
                 else:
                     #Create all children but exclude the key
-                    event = self.loop_dict(event,key,item)
+                    #event =
+                    self.loop_dict(event,key,item)
                     del event[f'{key}.{self.key}']
             yield event
 
