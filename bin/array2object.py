@@ -119,7 +119,7 @@ class array2objectCommand(StreamingCommand):
                         item = self.dotpath(self.value,item)
                     except (ValueError,KeyError,IndexError) as e:
                         continue
-                    #Create children
+                    #Create all children
                     self.recursive_field(event,key,item,None)
                 else:
                     #Create all children but exclude the key
