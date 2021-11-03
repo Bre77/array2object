@@ -132,8 +132,7 @@ class array2objectCommand(StreamingCommand):
                 else:
                     #Create all children but exclude the key
                     #event =
-                    self.ignorekey = f'{key}.{self.key}'
-                    self.loop_dict(event,key,item)
+                    self.loop_dict(event,key,item,f'{key}.{self.key}')
             yield event
 
 dispatch(array2objectCommand, sys.argv, sys.stdin, sys.stdout, __name__)
