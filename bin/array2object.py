@@ -71,7 +71,7 @@ class array2objectCommand(StreamingCommand):
             self.loop_list(event,key,value,ignore)
         elif key not in event:
             # Add field for the first time
-            self.add_field(event,key,value,ignore)
+            self.add_field(event,key,value)
         elif event[key] == None:
             # Replace null value
             event[key] = value
