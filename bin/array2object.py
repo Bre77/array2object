@@ -127,7 +127,6 @@ class array2objectCommand(StreamingCommand):
                         continue
                     #Create children
                     #event =
-                    self.ignorekey = None
                     self.recursive_field(event,key,item)
                 else:
                     #Create all children but exclude the key
