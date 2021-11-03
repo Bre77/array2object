@@ -47,31 +47,31 @@ class array2objectCommand(StreamingCommand):
                 raise ValueError
         return target
 
-    def loop_dict(self,event,key,child):
+    def loop_dict(self,event,key,child,ignore=None):
         for index in child:
             #event = 
             key = f'{key}.{index}'
-            if key == self.ignorekey:
+            if key == ignore:
                 continue
-            self.recursive_field(event,key,child[index])
+            self.recursive_field(event,key,child[index],ignore)
         #return event
 
-    def loop_list(self,event,key,child):
+    def loop_list(self,event,key,child,ignore=None):
         for value in child:
             #event =
-            self.recursive_field(event,f'{key}{{}}',value)
+            self.recursive_field(event,f'{key}{{}}',value,ignore)
         #return event
 
-    def recursive_field(self,event,key,value):
+    def recursive_field(self,event,key,value,ignore=None):
         if isinstance(value,dict):
             # Traverse object
-            self.loop_dict(event,key,value)
+            self.loop_dict(event,key,value,ignore)
         elif isinstance(value,list):
             # Traverse array
-            self.loop_list(event,key,value)
+            self.loop_list(event,key,value,ignore)
         elif key not in event:
             # Add field for the first time
-            self.add_field(event,key,value)
+            self.add_field(event,key,value,ignore)
         elif event[key] == None:
             # Replace null value
             event[key] = value
