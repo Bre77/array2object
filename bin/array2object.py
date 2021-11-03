@@ -85,7 +85,7 @@ class array2objectCommand(StreamingCommand):
 
     def stream(self, events):
         for event in events:
-            event["error"] = null
+            event["error"] = None
             # Get JSON
             try:
                 data = json.loads(event[self.field])
