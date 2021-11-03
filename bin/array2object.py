@@ -49,21 +49,25 @@ class array2objectCommand(StreamingCommand):
 
     def loop_dict(self,event,key,child):
         for index in child:
-            event = self.recursive_field(event,f'{key}.{index}',child[index])
-        return event
+            #event = 
+            self.recursive_field(event,f'{key}.{index}',child[index])
+        #return event
 
     def loop_list(self,event,key,child):
         for value in child:
-            event = self.recursive_field(event,f'{key}{{}}',value)
-        return event
+            #event =
+            self.recursive_field(event,f'{key}{{}}',value)
+        #return event
 
     def recursive_field(self,event,key,value):
         if isinstance(value,dict):
             # Traverse object
-            return self.loop_dict(event,key,value)
+            #return
+            self.loop_dict(event,key,value)
         elif isinstance(value,list):
             # Traverse array
-            return self.loop_list(event,key,value)
+            #return
+            self.loop_list(event,key,value)
         elif key not in event:
             # Add field for the first time
             self._record_writer.custom_fields.add(key)
@@ -77,7 +81,7 @@ class array2objectCommand(StreamingCommand):
         else:
             # Make multivalue
             event[key] = [event[key],value]
-        return event
+        #return event
 
     def stream(self, events):
         for event in events:
@@ -120,10 +124,12 @@ class array2objectCommand(StreamingCommand):
                     except (ValueError,KeyError,IndexError) as e:
                         break
                     #Create children
-                    event = self.recursive_field(event,key,item)
+                    #event =
+                    self.recursive_field(event,key,item)
                 else:
                     #Create all children but exclude the key
-                    event = self.loop_dict(event,key,item)
+                    #event =
+                    self.loop_dict(event,key,item)
                     del event[f'{key}.{self.key}']
             yield event
 
