@@ -50,7 +50,10 @@ class array2objectCommand(StreamingCommand):
     def loop_dict(self,event,key,child):
         for index in child:
             #event = 
-            self.recursive_field(event,f'{key}.{index}',child[index])
+            key = f'{key}.{index}'
+            if key == self.ignorekey:
+                continue
+            self.recursive_field(event,key,child[index])
         #return event
 
     def loop_list(self,event,key,child):
@@ -126,8 +129,8 @@ class array2objectCommand(StreamingCommand):
                 else:
                     #Create all children but exclude the key
                     #event =
+                    self.ignorekey = f'{key}.{self.key}'
                     self.loop_dict(event,key,item)
-                    del event[f'{key}.{self.key}']
             yield event
 
 dispatch(array2objectCommand, sys.argv, sys.stdin, sys.stdout, __name__)
