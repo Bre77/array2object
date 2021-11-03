@@ -114,7 +114,7 @@ class array2objectCommand(StreamingCommand):
                     continue
 
                 if(isinstance(key_value,dict) or isinstance(key_value,list)):
-                    break
+                    continue
                 
                 key = f'{self.path}.{key_value}'
 
