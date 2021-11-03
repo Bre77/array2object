@@ -50,10 +50,10 @@ class array2objectCommand(StreamingCommand):
     def loop_dict(self,event,key,child,ignore=None):
         for index in child:
             #event = 
-            key = f'{key}.{index}'
-            if key == ignore:
+            nextkey = f'{key}.{index}'
+            if nextkey == ignore:
                 continue
-            self.recursive_field(event,key,child[index],ignore)
+            self.recursive_field(event,nextkey,child[index],ignore)
         #return event
 
     def loop_list(self,event,key,child,ignore=None):
