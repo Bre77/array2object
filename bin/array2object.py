@@ -3,7 +3,6 @@
 import sys
 import os
 import json
-#import re
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
 from splunklib.searchcommands import dispatch, StreamingCommand, Configuration, Option, validators
@@ -77,7 +76,6 @@ class array2objectCommand(StreamingCommand):
         else:
             # Make multivalue
             event[key] = [event[key],value]
-        #return event
 
     def stream(self, events):
         for event in events:
@@ -111,6 +109,7 @@ class array2objectCommand(StreamingCommand):
                 if(isinstance(key_value,dict) or isinstance(key_value,list)):
                     continue
                 
+                # Create this items starting key
                 key = f'{self.path}.{key_value}'
 
                 if self.value:
