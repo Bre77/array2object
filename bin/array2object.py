@@ -62,16 +62,13 @@ class array2objectCommand(StreamingCommand):
     def recursive_field(self,event,key,value):
         if isinstance(value,dict):
             # Traverse object
-            #return
             self.loop_dict(event,key,value)
         elif isinstance(value,list):
             # Traverse array
-            #return
             self.loop_list(event,key,value)
         elif key not in event:
             # Add field for the first time
-            self._record_writer.custom_fields.add(key)
-            event[key] = value
+            self.add_field(event,key,value)
         elif event[key] == None:
             # Replace null value
             event[key] = value
