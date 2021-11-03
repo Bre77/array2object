@@ -111,7 +111,7 @@ class array2objectCommand(StreamingCommand):
                 try:
                     key_value = self.dotpath(self.key,item)
                 except (ValueError,KeyError,IndexError) as e:
-                    break
+                    continue
 
                 if(isinstance(key_value,dict) or isinstance(key_value,list)):
                     break
@@ -124,7 +124,7 @@ class array2objectCommand(StreamingCommand):
                         item = self.dotpath(self.value,item)
                     except (ValueError,KeyError,IndexError) as e:
                         event["error"] = e
-                        break
+                        continue
                     #Create children
                     #event =
                     self.recursive_field(event,key,item)
