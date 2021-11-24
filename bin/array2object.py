@@ -5,7 +5,7 @@ import os
 import json
 
 #sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
-from ..lib.splunklib.searchcommands import dispatch, StreamingCommand, Configuration, Option, validators
+from lib.splunklib.searchcommands import dispatch, StreamingCommand, Configuration, Option, validators
 
 @Configuration()
 class array2objectCommand(StreamingCommand):
