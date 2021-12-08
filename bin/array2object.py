@@ -4,7 +4,7 @@ import sys
 import os
 import json
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'lib'))
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", 'lib'))
 from splunklib.searchcommands import dispatch, StreamingCommand, Configuration, Option, validators
 
 @Configuration()
