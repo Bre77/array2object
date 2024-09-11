@@ -1,9 +1,6 @@
 {
     "name": "array2object",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "license": "https://cdn.splunkbase.splunk.com/static/misc/eula.html",
-    "splunkbaseid": 6161,
-    "scripts": {
-        "build": "node bin/build.js build",
-    }
+    "splunkbaseid": 6161
 }
