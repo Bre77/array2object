@@ -2,3 +2,4 @@ local
 lib/
 !lib/requirements.txt
 local.meta
+*.spl
