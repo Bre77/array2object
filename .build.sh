@@ -9,4 +9,5 @@ rm -rf lib/splunklib/__pycache__
 rm -rf lib/splunklib/searchcommands/__pycache__
 rm -rf lib/splunklib/modularinput/__pycache__
 rm -rf lib/*/__pycache__
-tar -cpzf $OUTPUT --exclude=.* --overwrite ../array2object 
+cd ..
+tar -cpzf $OUTPUT --exclude=.* --overwrite array2object 
